@@ -1,0 +1,21 @@
+<form novalidate [formGroup]="searchForm" (ngSubmit)="onSubmit()" (mouseleave)="onMouseLeave()" (mouseenter)="onMouseEnter()">
+  <h3>Enter search task</h3>
+  <input #searchInput id="searchInput" type="text" formControlName="search" autocomplete="off" >
+  <i *appFilterIf="visibleRemove" class="fa fa-times" aria-hidden="true" (click)="onRemove()"></i>
+  <div *appFilterIf="visibleFilter">
+    <ul>
+      <li appSelectedElement (searchFromFilter)="fromFilter($event)" *ngFor="let elementFiltered of filteredData">
+        <span [innerHTML]="elementFiltered.element | history"></span>
+        <a id="{{elementFiltered.element}}" (click)="onDelete($event)">delete</a>
+      </li>
+    </ul>
+  </div>
+  <!-- <p>
+    Search for: <b>{{ searchForm.get('search')?.value }}</b>
+  </p> -->
+  <p>
+    Search for:
+  </p>
+  <pre>{{searchForm.value | json}}</pre>
+  <!-- <input type="submit" value="Search"> -->
+</form>
